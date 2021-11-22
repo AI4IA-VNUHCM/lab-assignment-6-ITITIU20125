@@ -27,8 +27,9 @@ void Ex4(char *str){
 				i++;
 			}
 		}
-		i++;
+	    i++;	
 	}
+	
 	str[j] = '\0';
 	printf("%s", str);
 }
