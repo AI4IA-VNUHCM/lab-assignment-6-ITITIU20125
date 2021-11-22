@@ -15,33 +15,62 @@ Ex:
 
 void Ex3(char *str){
 	//Your codes here
-	int n = str.length();
-    int i = 0, j = -1;
-    bool spaceFound = false;
-    while (++j < n && str[j] == ' ');
-    while (j < n)
-    {
-        if (str[j] != ' ')
-        {
+	int length = strlen(str);
+	char longstr[1000], shortstr[1000];
+	int i = 0, count_long = 0, count_short = 0, longest = 0, shortest = 1000;
+	int idx_long, idx_short;
+	for (i = 0; i < length; i++)
+	{
+		if (str[i] != ' ')
+		{
+			count_short++;
+			count_long++;
+		}
+		else
+		{
+			if (count_short < shortest)
+			{
+				shortest = count_short;
+				idx_short = i - shortest;
+			}
+			if (count_long > longest)
+			{
+				longest = count_long;
+				idx_long = i - longest;
+			}
+			count_short = 0;
+			count_long = 0;
+		}
+	}
+	if (count_short < shortest)
+	{
+		shortest = count_short;
+		idx_short = i - shortest;
+	}
+	if (count_long > longest)
+	{
+		longest = count_long;
+		idx_long = i - longest;
+	}
 
-            if ((str[j] == '.' || str[j] == ',' ||
-                 str[j] == '?') && i - 1 >= 0 &&
-                 str[i - 1] == ' ')
-                str[i - 1] = str[j++];
- 
-            else
+	int j = 0;
+	for (int i = idx_long; i < (idx_long + longest); i++)
+	{
+		longstr[j] = str[i];
+		j++;
+	}
 
-            spaceFound = false;
-        }
-        else if (str[j++] == ' ')
-        {
-           
-            if (!spaceFound)
-            {
-                str[i++] = ' ';
-                spaceFound = true;
-            }
-        }
+	int k = 0;
+	for (int i = idx_short; i < (idx_short + shortest); i++)
+	{
+		shortstr[k] = str[i];
+		k++;
+	}
+	shortstr[k] = '\0';
+	longstr[j] = '\0';
+
+	printf("Shortest word: %s\n", shortstr);
+	printf("Longest word: %s", longstr);
 }
 
 int main(int argc, char *argv[]) {
