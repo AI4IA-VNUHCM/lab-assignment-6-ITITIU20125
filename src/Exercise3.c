@@ -15,7 +15,33 @@ Ex:
 
 void Ex3(char *str){
 	//Your codes here
-	
+	int n = str.length();
+    int i = 0, j = -1;
+    bool spaceFound = false;
+    while (++j < n && str[j] == ' ');
+    while (j < n)
+    {
+        if (str[j] != ' ')
+        {
+
+            if ((str[j] == '.' || str[j] == ',' ||
+                 str[j] == '?') && i - 1 >= 0 &&
+                 str[i - 1] == ' ')
+                str[i - 1] = str[j++];
+ 
+            else
+
+            spaceFound = false;
+        }
+        else if (str[j++] == ' ')
+        {
+           
+            if (!spaceFound)
+            {
+                str[i++] = ' ';
+                spaceFound = true;
+            }
+        }
 }
 
 int main(int argc, char *argv[]) {
